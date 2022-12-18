@@ -1,18 +1,24 @@
-import {Link} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import React from "react";
 import {Todo} from "./Todo";
 
-export default function TodoCard({todo} :{todo : Todo}){
+export default function TodoCard({
+                                     todo,
+                                     onDelete}
+                                     :{
+                                        todo : Todo,
+                                        onDelete: (id : string) => void}){
+    const navigate = useNavigate();
     return (
         <div className="todoCard-container">
             <div>
                 <h1> {todo.description}</h1>
             </div>
             <div>
-                <Link to={"todo/" + todo.id}>Details</Link>
+                <button onClick={() => navigate("todo/" + todo.id)}>Details</button>
             </div>
             <div>
-                <Link to={"todo/" + todo.id}>Delete</Link>
+                <button onClick={() => onDelete(todo.id)}>Delete</button>
             </div>
         </div>
 

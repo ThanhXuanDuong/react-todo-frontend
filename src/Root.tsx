@@ -29,11 +29,17 @@ export default function Root(){
             .catch(e => console.log(e))
     });
 
+    const onDelete =(id:string) =>{
+        axios.delete("/api/todo"+id)
+            .then(response =>response.data)
+            .catch(e => console.log(e))
+        setTodos(todos.filter((todo) => todo.id !== id))
+    }
     return(
         <div className={"todoList-container"}>
             <h1>To-do List</h1>
             <ul>
-                {todos.map(todo => <TodoCard key={todo.id} todo={todo}/>)}
+                {todos.map(todo => <TodoCard key={todo.id} todo={todo} onDelete={onDelete}/>)}
             </ul>
             <form onSubmit={onSubmit}>
                 <input type= "text" onChange={event => setNewTodo({...newTodo,description: event.target.value})}/>
