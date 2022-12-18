@@ -1,9 +1,9 @@
 import React, {FormEvent, useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
-import {Todo} from "./Todo";
+import {Todo} from "../types/Todo";
 import axios from "axios";
 
-export default function TodoPage(this: any){
+export default function TodoDetails(){
     const navigate = useNavigate();
     const {id} = useParams<{id: string}>();
     const editedTodoInitial = {id:"", description: "", status: ""};
@@ -12,11 +12,11 @@ export default function TodoPage(this: any){
     const [editingTodo, setEditingTodo] = useState<Todo>(editedTodoInitial);
 
     useEffect( () =>{
-        console.log("useEffect")
-        axios.get("/api/todo/" +id)
-            .then(response => { setTodo(response.data);
-                                setEditingTodo(response.data)})
-            .catch(e => console.log(e))
+        (async () =>{
+            const response = await axios.get("/api/todo/" +id);
+            setTodo(response.data);
+            setEditingTodo(response.data)
+        })()
     },[id]);
 
     const onSubmit  =((event: FormEvent<HTMLFormElement>) => {
@@ -28,24 +28,28 @@ export default function TodoPage(this: any){
     });
 
     return (
-        <div>
+        <div className={"details"}>
+            <button onClick={() => navigate("/")}>Back Home</button>
             {todo
                 ?
-                <div>
-                    <button onClick={() => navigate("/")}>Back Home</button>
+                <div className={"details-container"}>
                     <h1>Description: {todo.description}</h1>
                     <h2>Status: {todo.status}</h2>
                     <form onSubmit={onSubmit}>
+                        <div>
                             <input type= "text"  onChange={ event => setEditingTodo({...editingTodo,description: event.target.value})}/>
-
+                        </div>
+                        <div>
                             <select onChange={event => {setEditingTodo({...editingTodo,status:event.target.value})}}>
-                                <option value="" selected disabled hidden>Change status</option>
+                                <option value="" selected disabled hidden>Status</option>
                                 <option value="OPEN">OPEN</option>
                                 <option value="IN_PROGRESS">IN PROGRESS</option>
                                 <option value="DONE">DONE</option>
                             </select>
-
-                            <button type={"submit"}>Edit</button>
+                        </div>
+                        <div>
+                        <button type={"submit"}>Edit</button>
+                        </div>
                     </form>
                 </div>
                 :

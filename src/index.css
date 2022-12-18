@@ -11,3 +11,85 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.todoList-container{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap:2rem;
+  margin: auto;
+  background-color: cadetblue;
+}
+
+
+.todoList-container .add-todo input{
+  width: 50vw;
+  margin: 2rem;
+}
+
+.todoList-container .add-todo button{
+  background-color: bisque;
+  border-radius: 0.2rem;
+}
+
+.todoList-container .categories-container{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+  text-align: center;
+}
+
+.todoList-container .categories-container>div{
+  background-color: bisque;
+  border-radius: 2rem;
+}
+
+.todoList-container .categories-container div ul{
+  display: block;
+  margin: 0.5rem;
+  padding:0.5rem;
+}
+.todoCard-container{
+  width: 15rem;
+  background-color: burlywood;
+  border: 0.1rem solid black;
+  border-radius: 1.5rem;
+  text-align: center;
+  margin: 1rem;
+}
+
+.todoCard-container .buttons-container{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0.5rem;
+}
+
+.details{
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  background-color: cadetblue;
+  padding: 2rem;
+}
+
+.details-container{
+  display: block;
+  margin: auto;
+  width: 50vw;
+  text-align: center;
+  align-self: center;
+}
+
+.details-container form{
+  width: 60%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
